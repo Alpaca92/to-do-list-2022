@@ -1,46 +1,91 @@
-# Getting Started with Create React App
+# Learn Recoil as doing make a todo list
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Skills
 
-## Available Scripts
+✔ React.js
 
-In the project directory, you can run:
+✔ Recoil
 
-### `npm start`
+✔ Styled-components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+✔ React-query
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+✔ React-helmet
 
-### `npm test`
+✔ React-router
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+✔ React-hook-form
 
-### `npm run build`
+<br />
+<hr />
+<br />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## What is recoil ?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`Recoil`은 `Vue.js`를 했다면 `Vuex`와 같은 개념이라고 생각하면 된다
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+전역변수를 만들어 저장하는 공간이다
 
-### `npm run eject`
+<br />
+<hr />
+<br />
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Installation recoil
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+일단 [Recoil documentation](https://recoiljs.org/)이 시키는대로 설치를 해보자
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```jsx
+$ npm i recoil
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br />
+<hr />
+<br />
 
-## Learn More
+## Start use recoil
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+그리고 `react query`를 사용할 때 `index.tsx`에서 `<App />`을 `<QueryClientProvider>`로 감쌌던 것 처럼 `<RecoilRoot>`로 감싸주자
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```jsx
+// src/index.tsx
+
+import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { RecoilRoot } from "recoil";
+
+const queryClient = new QueryClient();
+
+ReactDOM.render(
+  <React.StrictMode>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </RecoilRoot>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+```
+
+그리고 새로운 파일에 전역변수(react에서는 이를 `atom`이라고 부른다)을 만들자
+
+```jsx
+// src/atoms.ts
+
+import { atom } from "recoil";
+
+export const isDarkAtom = atom({
+  key: "isDark",
+  default: false,
+});
+```
+
+여기서 `key`는 고유의 이름이라고 생각하면 되고 `default`는 말그대로 기본값을 정해주는 것이다
+
+이를 사용 할 때에는 `useRecoilValue(<atom name>)`를 원하는 `component`에서 사용하면 된다
+
+또한 `atom`을 수정하고 싶을 때에는 `useSetRecoilState(<atom name>)`을 사용하면 되는데 이는 `setter function`을 불러온다
+
+이 `setter function`은 감사하게도 `useState()`에서 사용했던 `setter function`이랑 같은 args를 갖고 동일하게 동작한다
