@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { DefaultValue } from "recoil";
 
 interface Form {
@@ -21,11 +21,9 @@ function ToDoList() {
       firstName: "name",
     },
   });
-  const onValid = (data: any) => {
+  const onValid: SubmitHandler<Form> = (data) => {
     console.log(data);
   };
-
-  console.log(errors);
 
   return (
     <div>
