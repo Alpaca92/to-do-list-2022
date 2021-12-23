@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 
-interface Todo {
+export interface ITodo {
   text: string;
   category: "DONE" | "DOING" | "TO_DO";
   id: number;
 }
 
-export const todoAtom = atom<Todo[]>({
+export const todoAtom = atom<ITodo[]>({
   key: "todo",
   default: [],
 });
