@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { todoAtom } from "../atoms";
+import { todoState } from "../atoms";
 
 interface IForm {
   todo: string;
 }
 
 function CreateTodo() {
-  const setTodos = useSetRecoilState(todoAtom);
+  const setTodos = useSetRecoilState(todoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const handleValid = ({ todo }: IForm) => {
     setValue("todo", "");
