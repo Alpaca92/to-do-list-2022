@@ -1,5 +1,4 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { DefaultValue } from "recoil";
 
 interface Form {
   email: string;
@@ -8,6 +7,7 @@ interface Form {
   username: string;
   password: string;
   repeatPassword: string;
+  extraError?: string;
 }
 
 function ToDoList() {
@@ -15,15 +15,25 @@ function ToDoList() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<Form>({
     defaultValues: {
       email: "@naver.com",
       firstName: "name",
     },
   });
-  const onValid: SubmitHandler<Form> = (data) => {
-    console.log(data);
+  const onValid = (data: Form) => {
+    if (data.password !== data.repeatPassword)
+      setError(
+        "repeatPassword",
+        { message: "패스워드가 같지 않습니다" },
+        { shouldFocus: true }
+      );
+
+    // setError("extraError", { message: "서버 에러" });
   };
+
+  console.log(errors);
 
   return (
     <div>
@@ -58,7 +68,11 @@ function ToDoList() {
         <input
           {...register("username", {
             required: "필수 값입니다",
-            minLength: 10,
+            validate: {
+              noAlpaca: (value) =>
+                !value.includes("alpaca") || "알파카는 쓰면 안돼",
+              noNico: (value) => !value.includes("nico") || "no nicos allowed",
+            },
           })}
           type="text"
           placeholder="Username"
@@ -86,6 +100,7 @@ function ToDoList() {
         />
         <span>{errors?.repeatPassword?.message}</span>
         <button>add</button>
+        <span>{errors?.extraError?.message}</span>
       </form>
     </div>
   );
