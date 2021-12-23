@@ -92,6 +92,15 @@ export const isDarkAtom = atom({
 
 이 `setter function`은 감사하게도 `useState()`에서 사용했던 `setter function`이랑 같은 args를 갖고 동일하게 동작한다
 
+이미 알고 있는 `useState()`와 거의 동일한 모양으로 사용하고 싶다면
+
+```js
+import { useSRecoilState } from 'recoil';
+
+const [value, setValue] = useRecoilState(isDarkAtom)
+```
+이런 식으로 사용하면 된다
+
 <br />
 <hr />
 <br />
