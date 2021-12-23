@@ -140,4 +140,30 @@ function App() {
   );
 }
 ```
+
 기본적으로는 위와 같이 `input`에 `props`를 주는 형식으로 사용한다
+
+`required`를 통해 메세지도 보낼 수가 있는데 이를 위해서는 html의 `required`는 빼줘야한다
+
+그렇지 않으면 정상적으로 작동하지 않는다
+
+```js
+// is okay
+
+<input
+  {...register("email", { required: "이메일을 입력해주세요" })}
+  type="email"
+  placeholder="Email"
+/>
+```
+
+```js
+// is not okay : you must remove 'required' attribute in html tag
+
+<input
+  {...register("email", { required: "이메일을 입력해주세요" })}
+  type="email"
+  placeholder="Email"
+  required
+/>
+```
