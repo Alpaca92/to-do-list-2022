@@ -22,6 +22,7 @@ function ToDoList() {
       firstName: "name",
     },
   });
+  // onValid는 아래의 모든 validation을 통과해야 호출됨
   const onValid = (data: Form) => {
     if (data.password !== data.repeatPassword)
       setError(
@@ -33,7 +34,7 @@ function ToDoList() {
     // setError("extraError", { message: "서버 에러" });
   };
 
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <div>
