@@ -5,6 +5,7 @@ import Todo from "./Todo";
 
 function ToDoList() {
   const todos = useRecoilValue(todoAtom);
+
   return (
     <div>
       <h1>Todo List</h1>
