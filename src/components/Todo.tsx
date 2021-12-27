@@ -35,11 +35,11 @@ function Todo({ text, category, id }: ITodo) {
       <span>{text}</span>
       {category !== Categories.TO_DO && (
         <button onClick={() => onChangeCategory(Categories.TO_DO)}>
-          Doing
+          Todo
         </button>
       )}
       {category !== Categories.DOING && (
-        <button onClick={() => onChangeCategory(Categories.DOING)}>Todo</button>
+        <button onClick={() => onChangeCategory(Categories.DOING)}>Doing</button>
       )}
       {category !== Categories.DONE && (
         <button onClick={() => onChangeCategory(Categories.DONE)}>Done</button>
