@@ -17,8 +17,8 @@ function ToDoList() {
       <hr />
       <form>
         <select value={category} onInput={onInput}>
-          {Object.keys(Categories).map((key) => (
-            <option value={key}>{key}</option>
+          {Object.keys(Categories).map((key, idx) => (
+            <option key={idx} value={key}>{key}</option>
           ))}
         </select>
       </form>
