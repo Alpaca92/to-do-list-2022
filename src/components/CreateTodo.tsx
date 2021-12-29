@@ -17,14 +17,27 @@ function CreateTodo() {
     if (todo.trim()) {
       if (!customCategory) {
         setTodos((oldTodos) => {
-          return [{ text: todo, category, id: Date.now() }, ...oldTodos];
+          const newTodos = [
+            { text: todo, category, id: Date.now() },
+            ...oldTodos,
+          ];
+
+          localStorage.setItem("todos", JSON.stringify(newTodos));
+
+          return newTodos;
         });
       } else {
         setValue("customCategory", "");
-        setTodos((oldTodos) => [
-          { text: todo, category: customCategory, id: Date.now() },
-          ...oldTodos,
-        ]);
+        setTodos((oldTodos) => {
+          const newTodos = [
+            { text: todo, category: customCategory, id: Date.now() },
+            ...oldTodos,
+          ];
+
+          localStorage.setItem("todos", JSON.stringify(newTodos));
+
+          return newTodos;
+        });
       }
     }
   };

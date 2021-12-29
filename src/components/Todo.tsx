@@ -8,16 +8,25 @@ function Todo({ text, category, id }: ITodo) {
   const onChangeCategory = (name: ITodo["category"]) => {
     setTodos((oldTodos) => {
       const targetIdx = oldTodos.findIndex((todo) => todo.id === id);
-
-      return [
+      const newTodos = [
         ...oldTodos.slice(0, targetIdx),
         { text, category: name, id },
         ...oldTodos.slice(targetIdx + 1),
       ];
+
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+
+      return newTodos;
     });
   };
   const onDeleteTodo = (text: ITodo["text"]) => {
-    setTodos((oldTodos) => oldTodos.filter((todo) => todo.id !== id));
+    setTodos((oldTodos) => {
+      const newTodos = oldTodos.filter((todo) => todo.id !== id);
+
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+
+      return newTodos;
+    });
   };
 
   /*
