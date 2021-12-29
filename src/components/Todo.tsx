@@ -1,9 +1,10 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
-import { Categories, ITodo, todoState } from "../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { ITodo, todoCategoriesSelector, todoState } from "../atoms";
 
 function Todo({ text, category, id }: ITodo) {
   const setTodos = useSetRecoilState(todoState);
+  const todoCategories = useRecoilValue(todoCategoriesSelector);
   const onChangeCategory = (name: ITodo["category"]) => {
     setTodos((oldTodos) => {
       const targetIdx = oldTodos.findIndex((todo) => todo.id === id);
@@ -33,18 +34,18 @@ function Todo({ text, category, id }: ITodo) {
   return (
     <li>
       <span>{text}</span>
-      {category !== Categories.TODO && (
-        <button onClick={() => onChangeCategory(Categories.TODO)}>
-          Todo
-        </button>
+      {todoCategories.map(
+        (key, idx) =>
+          category !== key && (
+            <button
+              key={idx}
+              onClick={() => onChangeCategory(key as ITodo["category"])}
+            >
+              {key}
+            </button>
+          )
       )}
-      {category !== Categories.DOING && (
-        <button onClick={() => onChangeCategory(Categories.DOING)}>Doing</button>
-      )}
-      {category !== Categories.DONE && (
-        <button onClick={() => onChangeCategory(Categories.DONE)}>Done</button>
-      )}
-      <button onClick={() => onDeleteTodo(text)}>delete</button>
+      <button onClick={() => onDeleteTodo(text)}>DELETE</button>
     </li>
   );
 }

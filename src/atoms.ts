@@ -3,15 +3,15 @@ import { atom, selector } from "recoil";
 export enum Categories {
   "TODO" = "TODO",
   "DOING" = "DOING",
-  "DONE" = "DONE"
+  "DONE" = "DONE",
 }
 export interface ITodo {
   text: string;
-  category: Categories;
+  category: Categories | string;
   id: number;
 }
 
-export const categoryState = atom<Categories>({
+export const categoryState = atom<Categories | string>({
   key: "category",
   default: Categories.TODO,
 });
@@ -28,5 +28,21 @@ export const todoSelector = selector({
     const category = get(categoryState);
 
     return todos.filter((todo) => todo.category === category);
+  },
+});
+
+export const todoCategoriesSelector = selector({
+  key: "todoCategoriesSelector",
+  get: ({ get }) => {
+    const todos = get(todoState);
+
+    return [
+      ...(new Set([
+        Categories.TODO,
+        Categories.DOING,
+        Categories.DONE,
+        ...todos.map((todo) => todo.category),
+      ]) as any),
+    ];
   },
 });
