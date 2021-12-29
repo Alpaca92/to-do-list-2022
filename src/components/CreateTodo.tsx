@@ -14,17 +14,19 @@ function CreateTodo() {
   const handleValid = ({ customCategory, todo }: IForm) => {
     setValue("todo", "");
 
-    if (!customCategory) {
-      setTodos((oldTodos) => [
-        { text: todo, category, id: Date.now() },
-        ...oldTodos,
-      ]);
-    } else {
-      setValue("customCategory", "");
-      setTodos((oldTodos) => [
-        { text: todo, category: customCategory, id: Date.now() },
-        ...oldTodos,
-      ]);
+    if (todo.trim()) {
+      if (!customCategory) {
+        setTodos((oldTodos) => [
+          { text: todo, category, id: Date.now() },
+          ...oldTodos,
+        ]);
+      } else {
+        setValue("customCategory", "");
+        setTodos((oldTodos) => [
+          { text: todo, category: customCategory, id: Date.now() },
+          ...oldTodos,
+        ]);
+      }
     }
   };
 
