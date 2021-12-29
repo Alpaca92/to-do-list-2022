@@ -16,10 +16,9 @@ function CreateTodo() {
 
     if (todo.trim()) {
       if (!customCategory) {
-        setTodos((oldTodos) => [
-          { text: todo, category, id: Date.now() },
-          ...oldTodos,
-        ]);
+        setTodos((oldTodos) => {
+          return [{ text: todo, category, id: Date.now() }, ...oldTodos];
+        });
       } else {
         setValue("customCategory", "");
         setTodos((oldTodos) => [

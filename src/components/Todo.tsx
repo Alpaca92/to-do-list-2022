@@ -17,7 +17,7 @@ function Todo({ text, category, id }: ITodo) {
     });
   };
   const onDeleteTodo = (text: ITodo["text"]) => {
-    setTodos((oldTodos) => oldTodos.filter((todo) => todo.text !== text));
+    setTodos((oldTodos) => oldTodos.filter((todo) => todo.id !== id));
   };
 
   /*
