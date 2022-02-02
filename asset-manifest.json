@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/to-do-list-2022/static/js/main.b86be48c.js",
+    "index.html": "/to-do-list-2022/index.html",
+    "main.b86be48c.js.map": "/to-do-list-2022/static/js/main.b86be48c.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.b86be48c.js"
+  ]
+}
